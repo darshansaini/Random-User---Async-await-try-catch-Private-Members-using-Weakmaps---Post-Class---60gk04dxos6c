@@ -78,6 +78,41 @@ const App = () => {
     </div>
   )
 }
+const userPhoto = document.getElementById("user-photo");
+const userName = document.getElementById("user-name");
+const info = document.getElementById("info");
+
+const ageButton = document.getElementById("age");
+const emailButton = document.getElementById("email");
+const phoneButton = document.getElementById("phone");
+const getUserButton = document.getElementById("getUser");
+
+let userData;
+
+ageButton.addEventListener("click", () => {
+  info.innerHTML = userData.dob.age;
+});
+
+emailButton.addEventListener("click", () => {
+  info.innerHTML = userData.email;
+});
+
+phoneButton.addEventListener("click", () => {
+  info.innerHTML = userData.phone;
+});
+
+getUserButton.addEventListener("click", () => {
+  fetch("https://randomuser.me/api/")
+    .then((response) => response.json())
+    .then((data) => {
+      userData = data.results[0];
+      userPhoto.src = userData.picture.large;
+      userName.innerHTML = `${userData.name.first} ${userData.name.last}`;
+      info.innerHTML = "";
+    });
+});
+
+getUserButton.click();
 
 
 export default App;
