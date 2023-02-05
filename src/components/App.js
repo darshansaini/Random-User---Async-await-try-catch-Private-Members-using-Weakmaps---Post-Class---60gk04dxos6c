@@ -72,12 +72,6 @@ import '../styles/App.css';
 // }
 const App = () => {
   
-  return (
-    <div id="main">
-      
-    </div>
-  )
-}
 const imageElement = document.getElementById('image');
 const nameElement = document.getElementById('name');
 const ageButton = document.getElementById('age');
@@ -118,5 +112,27 @@ phoneButton.addEventListener('click', _ => {
 });
 
 getUserButton.addEventListener('click', renderRandomUser);
+  
+  return (
+    <div id="main">
+      <div class="container">
+          <div class="img-container">
+               <img src="" id="image" alt="img">
+          </div>
+          <h1 id="name">Javid Ahmad Raina</h1>
+          <div class="buttons">
+               <button id="age" data-attr = "age">Age</button>
+               <button id="email" data-attr = "email">Email</button>
+               <button id="phone" data-attr = "phone">Phone</button>
+          </div>
+          <section>
+               <h1 id="additional-info">Additional info</h1>
+          </section>
+          <button id="getUser">Get User</button>
+     </div>
+    </div>
+  )
+}
+
 
 export default App;
