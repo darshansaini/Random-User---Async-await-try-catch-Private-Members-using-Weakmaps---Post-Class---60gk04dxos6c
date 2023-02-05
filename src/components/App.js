@@ -78,41 +78,45 @@ const App = () => {
     </div>
   )
 }
-const userPhoto = document.getElementById("user-photo");
-const userName = document.getElementById("user-name");
-const info = document.getElementById("info");
+const imageElement = document.getElementById('image');
+const nameElement = document.getElementById('name');
+const ageButton = document.getElementById('age');
+const emailButton = document.getElementById('email');
+const phoneButton = document.getElementById('phone');
+const additionalInfoElement = document.getElementById('additional-info');
+const getUserButton = document.getElementById('getUser');
 
-const ageButton = document.getElementById("age");
-const emailButton = document.getElementById("email");
-const phoneButton = document.getElementById("phone");
-const getUserButton = document.getElementById("getUser");
+const RANDOM_USER_API = "https://randomuser.me/api/";
+let age = 24;
+let email = "rainajavid15@gmail.com";
+let phone = "(+91) 9797555369";
 
-let userData;
+function getRandomUser(){
+     return fetch(RANDOM_USER_API).then(res => res.json()).then(res => res.results[0]);
+}
 
-ageButton.addEventListener("click", () => {
-  info.innerHTML = userData.dob.age;
+async function renderRandomUser(){
+     let randomUser = await getRandomUser();
+     imageElement.src = randomUser.picture.large;
+     nameElement.innerText = `${randomUser.name.first} ${randomUser.name.last}`;
+     age = randomUser.dob.age;
+     email = randomUser.email;
+     phone = randomUser.phone;
+     console.log(randomUser);
+}
+
+renderRandomUser();
+
+ageButton.addEventListener('click', _ => {
+     additionalInfoElement.innerText = age;
+});
+emailButton.addEventListener('click', _ => {
+     additionalInfoElement.innerText = email;
+});
+phoneButton.addEventListener('click', _ => {
+     additionalInfoElement.innerText = phone;
 });
 
-emailButton.addEventListener("click", () => {
-  info.innerHTML = userData.email;
-});
-
-phoneButton.addEventListener("click", () => {
-  info.innerHTML = userData.phone;
-});
-
-getUserButton.addEventListener("click", () => {
-  fetch("https://randomuser.me/api/")
-    .then((response) => response.json())
-    .then((data) => {
-      userData = data.results[0];
-      userPhoto.src = userData.picture.large;
-      userName.innerHTML = `${userData.name.first} ${userData.name.last}`;
-      info.innerHTML = "";
-    });
-});
-
-getUserButton.click();
-
+getUserButton.addEventListener('click', renderRandomUser);
 
 export default App;
